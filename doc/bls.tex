@@ -6,6 +6,8 @@
 \usepackage{fancyhdr}
 \usepackage[acronym]{glossaries}
 \usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 \fancyhead[R]{}
 \fancyhead[C]{Informatikseminar: The BLS Signature Scheme}
@@ -60,6 +62,13 @@ Pairing-based cryptography is based on pairing functions that map pairs of point
 \pagebreak
 
 \section{BLS Signatures}
+Keygen(): random \[ x\in \mathbb{Z}_{q} \] and set \[ h \leftarrow g_{1}^\alpha\in \mathbb{G}_{1} \] output: \( pk := \)(h) and \( sk := (\alpha) \)
+
+
+Sign(sk, m): \[ \sigma\ := h^x  h := H(m) \]
+
+
+Verify(pk, m \(\sigma\)): if \[ e(g_{1},\sigma) = e(pk, H_{0}(m)) \] accept, otherwise reject
 \pagebreak
 
 \section{Use cases for BLS Signatures}

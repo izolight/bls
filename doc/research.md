@@ -23,3 +23,6 @@
 
 ## Pairing based cryptography
 - https://doubleoctopus.com/security-wiki/encryption-and-cryptography/pairing-based-cryptography/
+
+## Latex
+- https://en.wikibooks.org/wiki/LaTeX/Mathematics
