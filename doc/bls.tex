@@ -51,13 +51,14 @@
 
 \section{Prerequisites}
 \subsection{Group theory}
-A group is a set \(\mathcal{G} = (G, \circ\), inv, \(e\)) with \cite[Slide 2.16]{crypto-slides-haenni} :
+\subsubsection{Definition}
+A group is a set \(\mathcal{G} = (G, \circ\), inv, \(e\)) with \cite[Slide 2.16]{crypto-slides-haenni}:
 \begin{itemize}
-	\item a binary operation \(\circ \) that uses two elements of G to produce another element of G:
+	\item a binary operation \(\circ \), that uses two elements of G to produce another element of G:
 	\[ G \times G \rightarrow G \]
-	\item a unary operation inv:
+	\item a unary operation inv, that inverses \(\circ\):
 	\[ G \rightarrow G \]
-	\item an identity element:
+	\item an identity element, that is neutral:
 	\[ e \in G \]
 \end{itemize}
 The group has to satisfy these properties:
@@ -71,27 +72,66 @@ The group has to satisfy these properties:
 	\item Inverse:
 	\[ x \circ inv(x) = inv(x) \circ x = e \]
 	\[ \forall x \in G \]
+	\item This implies Closure:
+	\begin{center}
+		Any \(x,y \in G \rightarrow x \circ y \) is also in \( G \)
+	\end{center}
 \end{itemize}
 
+\subsubsection{Examples}
+\begin{itemize}
+	\item Additive Groups
+	\begin{itemize}
+		\item Integers: \( (\mathbb{Z},+,-,0) \)
+		\item Real numbers: \( (\mathbb{R},+,-,0) \)
+		\item Elliptic curve over a prime field: \( (E_{a,b}(\mathbb{Z}_{p}),+,-, \mathcal{O}) \)
+	\end{itemize}
+	\item Multiplicative Groups
+	\begin{itemize}
+		\item Integers modulo \( n: ( \mathbb{Z}_{n}^*, \times_{n}, ^{-1}, 1) \)
+		\item Non-zero rational numbers: \( ( \mathbb{Q} \setminus 0, \times, ^{-1}, 1) \)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Cyclical Groups}
+
 \subsection{Elliptic curve cryptography (ECC)}
-An elliptic curve is a set of points describe by the equation:
+An elliptic curve is a set of points \((x,y)\) satisfying the equation\cite[Slide 6.4]{crypto-slides-haenni}:
 \begin{equation*}
 y^2 = x^3 + ax + b
 \end{equation*}
 
 \subsection{Pairing-based Cryptography}
-Pairing-based cryptography is based on pairing functions that map pairs of points on an elliptic curve into a finite field.
+Pairing-based cryptography is based on pairing functions that map pairs of points on an elliptic curve into a finite field.\cite{security-wiki-pbc}
+\newline
+With two values (P and Q) a pairing function is defined as \( e(P,Q) \)
 
 \pagebreak
 
 \section{BLS Signatures}
-Keygen(): random \[ x\in \mathbb{Z}_{q} \] and set \[ h \leftarrow g_{1}^\alpha\in \mathbb{G}_{1} \] output: \( pk := \)(h) and \( sk := (\alpha) \)
+The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
+\newline
+For a pairing function to be bi-linear, it has to satisfy these properties:
+\begin{itemize}
+	\item commutativity for additive and multiplicative operations
+	\item distributivity for multiplicative operations
+\end{itemize}
+\par
 
+We have the following functions
+\begin{itemize}
+	\item Keygen()
+	\begin{center}
+		random \( x\in \mathbb{Z}_{q} \) and set \( h \leftarrow g_{1}^\alpha\in \mathbb{G}_{1} \) output: \( pk := \)(h) and \( sk := (\alpha) \)
+	\end{center}
+	\item Sign \( (sk, m) \)
+	\[ \sigma\ := h^x  h := H(m) \]
+	\item Verify\( (pk, m \sigma) \)
+	\begin{center}
+		if \( e(g_{1},\sigma) = e(pk, H_{0}(m)) \) accept, otherwise reject
+	\end{center}
+\end{itemize}
 
-Sign(sk, m): \[ \sigma\ := h^x  h := H(m) \]
-
-
-Verify(pk, m \(\sigma\)): if \[ e(g_{1},\sigma) = e(pk, H_{0}(m)) \] accept, otherwise reject
 \pagebreak
 
 \section{Use cases for BLS Signatures}
