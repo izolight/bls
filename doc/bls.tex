@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage[mathcal]{euscript}
 
 \usepackage[
 	backend=biber,
@@ -50,11 +51,26 @@
 
 \section{Prerequisites}
 \subsection{Group theory}
-A group is a set G with a binary operation \(\circ \) \cite[Slide 2.16]{crypto-slides-haenni} that uses two elements of G to produce another element of G. The group has to satisfy these properties:
+A group is a set \(\mathcal{G} = (G, \circ\), inv, \(e\)) with \cite[Slide 2.16]{crypto-slides-haenni} :
 \begin{itemize}
-	\item Associativity
-	\item Identity
-	\item Inverse
+	\item a binary operation \(\circ \) that uses two elements of G to produce another element of G:
+	\[ G \times G \rightarrow G \]
+	\item a unary operation inv:
+	\[ G \rightarrow G \]
+	\item an identity element:
+	\[ e \in G \]
+\end{itemize}
+The group has to satisfy these properties:
+\begin{itemize}
+	\item Associativity:
+	\[ x \circ (y \circ z) = (x \circ y) \circ z \]
+	\[\forall x,y,z \in G \]
+	\item Identity:
+	\[ e \circ x = x \circ e = x \]
+	\[ \forall x \in G \]
+	\item Inverse:
+	\[ x \circ inv(x) = inv(x) \circ x = e \]
+	\[ \forall x \in G \]
 \end{itemize}
 
 \subsection{Elliptic curve cryptography (ECC)}
