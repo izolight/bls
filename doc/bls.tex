@@ -9,6 +9,13 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+\usepackage[
+	backend=biber,
+	style=alphabetic,
+	sorting=ynt
+]{biblatex}
+\addbibresource{references.bib}
+
 \fancyhead[R]{}
 \fancyhead[C]{Informatikseminar: The BLS Signature Scheme}
 \fancyhead[L]{}
@@ -43,7 +50,7 @@
 
 \section{Prerequisites}
 \subsection{Group theory}
-A group is a set G with a operation that uses two elements of G to produce another element of G. The group has to satisfy these properties:
+A group is a set G with a binary operation \(\circ \) \cite[Slide 2.16]{crypto-slides-haenni} that uses two elements of G to produce another element of G. The group has to satisfy these properties:
 \begin{itemize}
 	\item Associativity
 	\item Identity
@@ -76,5 +83,7 @@ Verify(pk, m \(\sigma\)): if \[ e(g_{1},\sigma) = e(pk, H_{0}(m)) \] accept, oth
 \subsection{Cryptocurrencies}
 \subsection{Blinding}
 \pagebreak
+
+\printbibliography
 
 \end{document}
