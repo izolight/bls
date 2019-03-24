@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage{amsmath}
 \usepackage{amssymb}
+
 \usepackage[mathcal]{euscript}
 
 \usepackage[
@@ -136,8 +137,23 @@ We have the following functions
 
 \section{Use cases for BLS Signatures}
 \subsection{Secret Sharing}
+Shamir secret sharing https://blog.dash.org/secret-sharing-and-threshold-signatures-with-bls-954d1587b5f
 \subsection{Cryptocurrencies}
+\subsubsection{Advantages}
+\begin{itemize}
+	\item short Signatures
+	\item aggregation of signatures and keys
+\end{itemize}
+
+\subsubsection{Uses}
+\begin{itemize}
+	\item Dashpay
+\end{itemize}
+
 \subsection{Blinding}
+Given signature \( \langle \sigma, g^x \rangle \) on message \( h \), we can blind the signature and public key \( g^x \):
+\[ e(\sigma^b,g) = e(h,g)*{xb} = e(h,g^{xb}) \]
+Thus \( \sigma^b \) is a valid signature for the derived public key \( (g^x)^b \) with blinding value \( b \in \mathbb{Z}_{q} \).\cite[PKI Slide 12]{crypto-slides-grothoff}
 \pagebreak
 
 \printbibliography

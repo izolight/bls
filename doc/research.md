@@ -14,6 +14,7 @@
 - https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716
 - https://medium.com/asecuritysite-when-bob-met-alice/boneh-lynn-shacham-bls-signatures-d053cf049aa8
 - https://crypto.stanford.edu/~dabo/pubs/papers/BLSmultisig.html
+- https://blog.dash.org/secret-sharing-and-threshold-signatures-with-bls-954d1587b5f
 
 ## Group theory
 - https://brilliant.org/wiki/group-theory-introduction/
