@@ -94,7 +94,7 @@ The group has to satisfy these properties:
 	\end{itemize}
 \end{itemize}
 
-\subsection{Cyclical Groups}
+\subsubsection{Cyclical Groups}
 
 \subsection{Elliptic curve cryptography (ECC)}
 An elliptic curve is a set of points \((x,y)\) satisfying the equation\cite[Slide 6.4]{crypto-slides-haenni}:
@@ -110,6 +110,7 @@ With two values (P and Q) a pairing function is defined as \( e(P,Q) \)
 \pagebreak
 
 \section{BLS Signatures}
+\subsection{Definition}
 The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
 \newline
 For a pairing function to be bi-linear, it has to satisfy these properties:
@@ -117,8 +118,10 @@ For a pairing function to be bi-linear, it has to satisfy these properties:
 	\item commutativity for additive and multiplicative operations
 	\item distributivity for multiplicative operations
 \end{itemize}
-\par
 
+\subsection{Properties}
+
+\subsection{Signature Generation and validation}
 We have the following functions
 \begin{itemize}
 	\item Keygen()
