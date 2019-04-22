@@ -19,7 +19,7 @@
 \addbibresource{references.bib}
 
 \fancyhead[R]{}
-\fancyhead[C]{Informatikseminar: The BLS Signature Scheme}
+\fancyhead[C]{The BLS Signature Scheme}
 \fancyhead[L]{}
 
 \pagestyle{fancy}
@@ -34,7 +34,7 @@
 \begin{center}
 \vspace*{3cm}
 \vspace{1cm}
-\Huge \textbf{Informatikseminar: \\ The BLS Signature Scheme} \\
+\Huge \textbf{The BLS Signature Scheme} \\
 \vspace{6cm}
 \vspace{1cm}
 \large Gabor Tanz \\ gabor.tanz@students.bfh.ch \\
@@ -44,15 +44,17 @@
 \tableofcontents
 \pagebreak
 
-\section{Abstract}
+\begin{abstract}
+	This document explains the BLS signature scheme and the necessary mathematic basics and one of its uses for cryptocurrencies.
+\end{abstract}
 \pagebreak
 
 \section{Introduction}
 \pagebreak
 
 \section{Prerequisites}
-\subsection{Group theory}
-\subsubsection{Definition}
+\subsection{Abstract Algebra}
+\subsubsection{Group Theory}
 A group is a set \(\mathcal{G} = (G, \circ\), inv, \(e\)) with \cite[Slide 2.16]{crypto-slides-haenni}:
 \begin{itemize}
 	\item a binary operation \(\circ \), that uses two elements of G to produce another element of G:
@@ -79,6 +81,10 @@ The group has to satisfy these properties:
 	\end{center}
 \end{itemize}
 
+\subsubsection{Cyclic Groups}
+
+\subsubsection{Fields}
+
 \subsubsection{Examples}
 \begin{itemize}
 	\item Additive Groups
@@ -94,15 +100,15 @@ The group has to satisfy these properties:
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Cyclical Groups}
 
-\subsection{Elliptic curve cryptography (ECC)}
+
+\subsection{Elliptic curves (EC)}
 An elliptic curve is a set of points \((x,y)\) satisfying the equation\cite[Slide 6.4]{crypto-slides-haenni}:
 \begin{equation*}
 y^2 = x^3 + ax + b
 \end{equation*}
 
-\subsection{Pairing-based Cryptography}
+\subsection{Bilinear Maps}
 Pairing-based cryptography is based on pairing functions that map pairs of points on an elliptic curve into a finite field.\cite{security-wiki-pbc}
 \newline
 With two values (P and Q) a pairing function is defined as \( e(P,Q) \)
@@ -110,18 +116,8 @@ With two values (P and Q) a pairing function is defined as \( e(P,Q) \)
 \pagebreak
 
 \section{BLS Signatures}
-\subsection{Definition}
-The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
-\newline
-For a pairing function to be bi-linear, it has to satisfy these properties:
-\begin{itemize}
-	\item commutativity for additive and multiplicative operations
-	\item distributivity for multiplicative operations
-\end{itemize}
-
-\subsection{Properties}
-
-\subsection{Signature Generation and validation}
+\subsection{Signature Schemes}
+\subsubsection{Signature Generation and validation}
 We have the following functions
 \begin{itemize}
 	\item Keygen()
@@ -135,10 +131,22 @@ We have the following functions
 		if \( e(g_{1},\sigma) = e(pk, H_{0}(m)) \) accept, otherwise reject
 	\end{center}
 \end{itemize}
+\subsection{The BLS Signature Scheme}
+The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
+\newline
+For a pairing function to be bi-linear, it has to satisfy these properties:
+\begin{itemize}
+	\item commutativity for additive and multiplicative operations
+	\item distributivity for multiplicative operations
+\end{itemize}
+
+\subsection{Threshold Signatures}
+
+\subsection{Blind Signatures}
 
 \pagebreak
 
-\section{Use cases for BLS Signatures}
+\section{BLS Signatures and for Cryptocurrencies}
 \subsection{Secret Sharing}
 Shamir secret sharing https://blog.dash.org/secret-sharing-and-threshold-signatures-with-bls-954d1587b5f
 \subsection{Cryptocurrencies}
@@ -158,6 +166,8 @@ Given signature \( \langle \sigma, g^x \rangle \) on message \( h \), we can bli
 \[ e(\sigma^b,g) = e(h,g)*{xb} = e(h,g^{xb}) \]
 Thus \( \sigma^b \) is a valid signature for the derived public key \( (g^x)^b \) with blinding value \( b \in \mathbb{Z}_{q} \).\cite[PKI Slide 12]{crypto-slides-grothoff}
 \pagebreak
+
+\section{Conclusion}
 
 \printbibliography
 
