@@ -53,33 +53,36 @@
 \pagebreak
 
 \section{Prerequisites}
+The following mathematical concepts are needed to better understand how the BLS Signature scheme works.
 \subsection{Abstract Algebra}
+Abstract Algebra deals with abstract structures rather than number systems. The structures that are relevant for this paper are groups and fields.
 \subsubsection{Group Theory}
-A group is a set \(\mathcal{G} = (G, \circ\), inv, \(e\)) with \cite[Slide 2.16]{crypto-slides-haenni}:
+A group is a set with a binary operation $\circ$, so that two elements of the group produce another element of the group and a unary operation $inv$ that inverses $\circ$.
+
+The operation needs to satisfy the following properties.
 \begin{itemize}
-	\item a binary operation \(\circ \), that uses two elements of G to produce another element of G:
-	\[ G \times G \rightarrow G \]
-	\item a unary operation inv, that inverses \(\circ\):
-	\[ G \rightarrow G \]
-	\item an identity element, that is neutral:
-	\[ e \in G \]
+	\item Associativity, which means the order of operations doesn't matter
+	\item Identity, an identity element $e$ exists, so that $\circ$ with any element of the group and the identity element produces the element itself.
+	\item Inverse, for each element $a$ in $G$ there exists an inverse element $b$, so that the two produce the identity element $e$.
+	\item Closure, for any element in $G$ the result of the operation $\circ$ is also in $G$. This is implied by satisfying the other three properties.
 \end{itemize}
-The group has to satisfy these properties:
-\begin{itemize}
-	\item Associativity:
-	\[ x \circ (y \circ z) = (x \circ y) \circ z \]
-	\[\forall x,y,z \in G \]
-	\item Identity:
-	\[ e \circ x = x \circ e = x \]
-	\[ \forall x \in G \]
-	\item Inverse:
-	\[ x \circ inv(x) = inv(x) \circ x = e \]
-	\[ \forall x \in G \]
-	\item This implies Closure:
-	\begin{center}
-		Any \(x,y \in G \rightarrow x \circ y \) is also in \( G \)
-	\end{center}
-\end{itemize}
+
+Mathematical definition:
+
+\linebreak
+Group: $\mathcal{G} = (G, \circ, inv, e)$
+
+\linebreak
+Associativity: $ x \circ (y \circ z) = (x \circ y) \circ z$ $\forall x,y,z \in G $
+
+\linebreak
+Identity: $ e \circ x = x \circ e = x $ $ \forall x,e  \in G $
+
+\linebreak
+Inverse: $ x \circ inv(x) = inv(x) \circ x = e $ $ \forall x \in G $
+
+\linebreak
+Closure: $ \forall x,y \in G \rightarrow x \circ y \in G $
 
 \subsubsection{Cyclic Groups}
 
