@@ -57,6 +57,9 @@ The following mathematical concepts are needed to better understand how the BLS 
 \subsection{Abstract Algebra}
 Abstract Algebra deals with abstract structures rather than number systems. The structures that are relevant for this paper are groups and fields.
 \subsubsection{Group Theory}
+
+\paragraph{Definition}\hfill
+
 A group is a set with a binary operation $\circ$, so that two elements of the group produce another element of the group and a unary operation $inv$ that inverses $\circ$.
 
 The operation needs to satisfy the following properties.
@@ -67,41 +70,28 @@ The operation needs to satisfy the following properties.
 	\item Closure, for any element in $G$ the result of the operation $\circ$ is also in $G$. This is implied by satisfying the other three properties.
 \end{itemize}
 
-Mathematical definition:
+\paragraph{Mathematical definition}\hfill
 
-\linebreak
 Group: $\mathcal{G} = (G, \circ, inv, e)$
 
-\linebreak
 Associativity: $ x \circ (y \circ z) = (x \circ y) \circ z$ $\forall x,y,z \in G $
 
-\linebreak
 Identity: $ e \circ x = x \circ e = x $ $ \forall x,e  \in G $
 
-\linebreak
 Inverse: $ x \circ inv(x) = inv(x) \circ x = e $ $ \forall x \in G $
 
-\linebreak
 Closure: $ \forall x,y \in G \rightarrow x \circ y \in G $
+
+\paragraph{Examples}\hfill
+
+The set of integers $\mathbb{Z}$ with the operation $+$, the identity element 0 and the inverse operation $-$. $\mathcal{G} = (\mathbb{Z},+,-,0)$
+
+The set of integers $\mathbb{Z}$ modulo $n$ with the operation $\times$, the identity element 1 and the inverse operation $^{-1}$. $\mathcal{G} = (\mathbb{Z}_{n}^*, \times_{n}, ^{-1}, 1)$
 
 \subsubsection{Cyclic Groups}
 
 \subsubsection{Fields}
 
-\subsubsection{Examples}
-\begin{itemize}
-	\item Additive Groups
-	\begin{itemize}
-		\item Integers: \( (\mathbb{Z},+,-,0) \)
-		\item Real numbers: \( (\mathbb{R},+,-,0) \)
-		\item Elliptic curve over a prime field: \( (E_{a,b}(\mathbb{Z}_{p}),+,-, \mathcal{O}) \)
-	\end{itemize}
-	\item Multiplicative Groups
-	\begin{itemize}
-		\item Integers modulo \( n: ( \mathbb{Z}_{n}^*, \times_{n}, ^{-1}, 1) \)
-		\item Non-zero rational numbers: \( ( \mathbb{Q} \setminus 0, \times, ^{-1}, 1) \)
-	\end{itemize}
-\end{itemize}
 
 
 
