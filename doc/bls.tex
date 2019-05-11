@@ -122,7 +122,7 @@ An elliptic curve is a set of points \((x,y)\) satisfying the equation:
 y^2 = x^3 + ax + b
 \end{equation*}
 The elliptic curve is defined over a field $\mathbb{F} = (F, +, -, 0, *, ^{-1}, 1)$ such that $4a^{3} + 27b^{2} \neq 0$.
-The resulting points for a set $E_a,b (F)$ that is defined as: ${(x,y) \in F \times F: y^{2} = x^{3} + ax + b}$ $\cup$ $\{\mathcal{O}\}$.
+The resulting points for a set $E_a,b (F)$ that is defined as: ${(x,y) \in F \times F: y^{2} = x^{3} + ax + b}$ $\cup$ $\{\mathcal{O}\}$, where $\mathcal{O}$ is called the point of infinity.
 
 \begin{figure}
 	\centering
@@ -131,7 +131,7 @@ The resulting points for a set $E_a,b (F)$ that is defined as: ${(x,y) \in F \ti
 	\label{fig:ec-b2}
 \end{figure}
 
-Every line that intersects the curve does it at exactly 3 points. If a point is tangent to the curve it is counted twice, if the line is vertical the point at infinity is also counted. With this property a binary operation + and an unary operation - on curve points can be defined.
+Every line that intersects the curve does it at exactly 3 points. If a point is tangent to the curve it is counted twice, if the line is vertical the point at infinity is also counted. With this property a binary operation + and an unary operation - on curve points can be defined, which form an additive Group $\mathcal{G} = (E_a,b (F), +, -, \mathcal{O})$
 
 
 \subsection{Bilinear Maps}
