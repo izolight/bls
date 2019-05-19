@@ -195,9 +195,10 @@ $E_2,_5 (\mathbb{Z}_7) = \{ (1,1),(1,6),(4,0),(5,0),(6,3),(6,4), \mathcal{O} \}$
 Addition works with the same formula as before, but because we are operating on a finite field, we can create a table for all possible additions as they will repeat themselves. In elliptic curves over a finite field every point is a generator if the order of the curve is prime.
 
 \subsection{Bilinear Maps}
-Pairing-based cryptography is based on pairing functions that map pairs of points on an elliptic curve into a finite field.\cite{security-wiki-pbc}
-\newline
-With two values (P and Q) a pairing function is defined as \( e(P,Q) \)
+Pairing-based cryptography is based on pairing functions that map pairs of points on an elliptic curve into a finite field.
+With two values ($G_1$ and $G_2$) a pairing function is defined as following:
+\[ e: G_1 \times G_2 \rightarrow G_t \text{ such that } \forall u \in G_1, v \in G_2, a, b \in \mathbb{Z} \]
+\[ e(u^a,v^b) = e(u,v)^ab \]
 
 \pagebreak
 
