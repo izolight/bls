@@ -242,10 +242,16 @@ G(n) := sk \text{ and } pk.
 \subsubsection{Signature generation}
 
 The signature generation algorithm takes the message and the private key as input and generates a signature. Formally the function is called $S$ and takes the secret key $sk$ and the message $m$ as input and generates a tag $t$.
+\[
+S(sk, m) := t
+\]
 
 \subsubsection{Signature validation}
 
 A signature can be validated with the message and the public key. The algorithm either accepts or rejects. Formally the function is called $V$, which takes the inputs $pk$, $m$ and $t$.
+\[
+V(pk, m, t) := \text{ true or false}
+\]
 
 \subsubsection{Signature Generation and validation}
 We have the following functions
