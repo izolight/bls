@@ -222,6 +222,31 @@ In our example the source Group $G$ are the points of an Elliptic Curve and the 
 
 \section{BLS Signatures}
 \subsection{Signature Schemes}
+
+A signature scheme is used for verifying the authenticity of digital messages. With a signature a recipient can verify that a message was sent by the sender it claims(authentication) and that it wasn't tampered with(integrity).
+
+A Signature scheme uses the following 3 algorithms:
+\begin{itemize}
+	\item key generation
+	\item signature generation
+	\item signature validation
+\end{itemize}
+
+\subsubsection{Key generation}
+
+The key generation algorithm generates a keypair consisting of a private and public key. The private key needs to be selected uniformly at random. It should not be possible to generate the private key with knowledge of the public key. Formally the key generation function is called $G$ and takes a security parameter $n$ and generates a secret key $sk$ and a public key $pk$.
+\[
+G(n) := sk \text{ and } pk.
+\]
+
+\subsubsection{Signature generation}
+
+The signature generation algorithm takes the message and the private key as input and generates a signature.
+
+\subsubsection{Signature validation}
+
+A signature can be validated with the message and the public key. The algorithm either accepts or rejects.
+
 \subsubsection{Signature Generation and validation}
 We have the following functions
 \begin{itemize}
