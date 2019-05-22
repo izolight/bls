@@ -195,7 +195,11 @@ $E_2,_5 (\mathbb{Z}_7) = \{ (1,1),(1,6),(4,0),(5,0),(6,3),(6,4), \mathcal{O} \}$
 Addition works with the same formula as before, but because we are operating on a finite field, we can create a table for all possible additions as they will repeat themselves. In elliptic curves over a finite field every point is a generator if the order of the curve is prime.
 
 \subsection{Bilinear Maps}
-A bilinear mapping $e$ maps two additive cyclic groups $G_1$ and $G_2$ of the same prime order $q$ to the multiplicative group $G_t$ of order q.
+A bilinear mapping $e$ maps two additive cyclic groups $G_1$ and $G_2$ of the same prime order $q$ to the multiplicative group $G_t$ of order q. For a pairing function $e$ to be bi-linear, it has to satisfy these properties:
+\begin{itemize}
+	\item commutativity for additive and multiplicative operations
+	\item distributivity for multiplicative operations
+\end{itemize}
 \[ e: G_1 \times G_2 \rightarrow G_t \]
 such that
 \[ \forall a,b \in \mathbb{Z}, u \in G_1, v \in G_2: \]
@@ -211,7 +215,6 @@ This means that $e(u^a,v^b) = e(u^b,v^a)$ as $e(u,v)^ab = e(u,v)^ba$.
 
 Another important property of this pairing is that it is non-degenerate, which means that if $u$ and $v$ are generators of $G_1$ and $G_2$ then $e(u,v)$ generates $G_t$, otherwise $e = 1$ would be a valid paring.
 Usually $G_1 = G_2$ so it will be noted as $G$ from now on.
-
 
 In our example the source Group $G$ are the points of an Elliptic Curve and the target Group is a multiplicative subgroup of a finite field.
 \[ G \subseteq E(F_p) \]
@@ -259,28 +262,22 @@ V(pk, m, t) := \text{ true or false}
 
 A hash function generates for a message of arbitrary size a value of fixed size, called hash. It should not be possible to reconstruct the message from the hash and the same input should always produce the same output. This way the integrity of a message can be verified.
 
-\subsubsection{Signature Generation and validation}
+\subsection{The BLS Signature Scheme}
+The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
 We have the following functions
 \begin{itemize}
-	\item Keygen()
+	\item Key generation $G()$
 	\begin{center}
 		random \( x\in \mathbb{Z}_{q} \) and set \( h \leftarrow g_{1}^\alpha\in \mathbb{G}_{1} \) output: \( pk := \)(h) and \( sk := (\alpha) \)
 	\end{center}
-	\item Sign \( (sk, m) \)
+	\item Signature generation $S(sk, m) $
 	\[ \sigma\ := h^x  h := H(m) \]
-	\item Verify\( (pk, m \sigma) \)
+	\item Singature validation $V(pk, m \sigma)$
 	\begin{center}
 		if \( e(g_{1},\sigma) = e(pk, H_{0}(m)) \) accept, otherwise reject
 	\end{center}
 \end{itemize}
-\subsection{The BLS Signature Scheme}
-The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
-\newline
-For a pairing function to be bi-linear, it has to satisfy these properties:
-\begin{itemize}
-	\item commutativity for additive and multiplicative operations
-	\item distributivity for multiplicative operations
-\end{itemize}
+
 
 \subsection{Threshold Signatures}
 
