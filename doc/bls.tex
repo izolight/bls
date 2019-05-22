@@ -232,6 +232,8 @@ A Signature scheme uses the following 3 algorithms:
 	\item signature validation
 \end{itemize}
 
+In most cases the signature is applied on the hash of the message instead of the message itself, as the calculation of the signature is often slow and the signature size depends on the message size. 
+
 \subsubsection{Key generation}
 
 The key generation algorithm generates a keypair consisting of a private and public key. The private key needs to be selected uniformly at random. It should not be possible to generate the private key with knowledge of the public key. Formally the key generation function is called $G$ and takes a security parameter $n$ and generates a secret key $sk$ and a public key $pk$.
@@ -252,6 +254,10 @@ A signature can be validated with the message and the public key. The algorithm 
 \[
 V(pk, m, t) := \text{ true or false}
 \]
+
+\subsubsection{Hash functions}
+
+A hash function generates for a message of arbitrary size a value of fixed size, called hash. It should not be possible to reconstruct the message from the hash and the same input should always produce the same output. This way the integrity of a message can be verified.
 
 \subsubsection{Signature Generation and validation}
 We have the following functions
