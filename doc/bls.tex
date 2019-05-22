@@ -246,16 +246,16 @@ G(n) := sk \text{ and } pk.
 
 \subsubsection{Signature generation}
 
-The signature generation algorithm takes the message and the private key as input and generates a signature. Formally the function is called $S$ and takes the secret key $sk$ and the message $m$ as input and generates a tag $t$.
+The signature generation algorithm takes the message and the private key as input and generates a signature. Formally the function is called $S$ and takes the secret key $sk$ and the message $m$ as input and generates a tag $\sigma$.
 \[
-S(sk, m) := t
+S(sk, m) := \sigma
 \]
 
 \subsubsection{Signature validation}
 
-A signature can be validated with the message and the public key. The algorithm either accepts or rejects. Formally the function is called $V$, which takes the inputs $pk$, $m$ and $t$.
+A signature can be validated with the message and the public key. The algorithm either accepts or rejects. Formally the function is called $V$, which takes the inputs $pk$, $m$ and $\sigma$.
 \[
-V(pk, m, t) := \text{ true or false}
+V(pk, m, \sigma) := \text{ true or false}
 \]
 
 \subsubsection{Hash functions}
@@ -264,7 +264,7 @@ A hash function generates for a message of arbitrary size a value of fixed size,
 
 \subsection{The BLS Signature Scheme}
 The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
-We have the following functions
+Formally we have the following functions defining the scheme.
 \begin{itemize}
 	\item Key generation $G()$
 	\begin{center}
@@ -272,12 +272,17 @@ We have the following functions
 	\end{center}
 	\item Signature generation $S(sk, m) $
 	\[ \sigma\ := h^x  h := H(m) \]
-	\item Singature validation $V(pk, m \sigma)$
+	\item Singature validation $V(pk, m, \sigma)$
 	\begin{center}
 		if \( e(g_{1},\sigma) = e(pk, H_{0}(m)) \) accept, otherwise reject
 	\end{center}
 \end{itemize}
 
+Interesting properties of the BLS Signature scheme are
+\begin{itemize}
+	\item threshold signature and key generation
+	\item signature aggregation
+\end{itemize}
 
 \subsection{Threshold Signatures}
 
