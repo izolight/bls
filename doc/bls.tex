@@ -282,11 +282,20 @@ Interesting properties of the BLS Signature scheme are
 \begin{itemize}
 	\item threshold signature and key generation
 	\item signature aggregation
+	\item
 \end{itemize}
 
 \subsection{Threshold Signatures}
 
 In a threshold cryptosystem a valid signature can be generated if a number of participants, larger than the threshold $n$, contribute a signature share into an overall signature. This signature is valid as if all participants had signed the message.
+
+\subsection{Signature aggregation}
+
+In BLS the primitives(secret keys, public keys and signatures) can be aggregated if they are of the same type and the result will be a primitive of the same type. Even already aggregated ones can be aggregated.
+
+\subsection{Correlation}
+
+If a secret key, public key and signature correlate to each other 
 
 \subsection{Blind Signatures}
 
