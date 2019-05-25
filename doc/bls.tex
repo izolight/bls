@@ -205,7 +205,8 @@ such that
 \[ \forall a,b \in \mathbb{Z}, u \in G_1, v \in G_2: \]
 \[ e(u^a,v^b) = e(u,v)^ab \]
 
-This means that $e(u^a,v^b) = e(u^b,v^a)$ as $e(u,v)^ab = e(u,v)^ba$.
+This means that $e(u^a,v^b) = e(u^b,v^a)$ as $e(u,v)^{ab} = e(u,v)^{ba}$.
+Sometimes the function is also written as $e(a\times{u},b\times{v}) = e(u,ab\times{v}) = e(ab\times{u},v) = e(u,v)^{ab}$
 
 \begin{figure}[hbt!]
 	\centering
@@ -216,10 +217,14 @@ This means that $e(u^a,v^b) = e(u^b,v^a)$ as $e(u,v)^ab = e(u,v)^ba$.
 Another important property of this pairing is that it is non-degenerate, which means that if $u$ and $v$ are generators of $G_1$ and $G_2$ then $e(u,v)$ generates $G_t$, otherwise $e = 1$ would be a valid paring.
 Usually $G_1 = G_2$ so it will be noted as $G$ from now on.
 
-In our example the source Group $G$ are the points of an Elliptic Curve and the target Group is a multiplicative subgroup of a finite field.
-\[ G \subseteq E(F_p) \]
-\[ G_t \subseteq (F_p \alpha)^{*} \]
-\[ ( \alpha = 1, 2, 3, 4, 6, 10, 12 ) \]
+If we apply the bilinear pairing to elliptical curves, we have the following definition:
+$$e(P, Q + R) = e(P, Q) * e(P, R)$$
+$$e(P + S, Q) = e(P, Q) * e(S, Q)$$
+
+\paragraph{Example}
+A simple pairing function could be $e(x, y) = 2^{xy}$:
+$$e(3, 4 + 5) = 2^{3*9} = 2^{27}$$
+$$e(3, 4) * e(3, 5) = 2^{3*4} * 2^{3*5} = 2^{12} * 2^{15} = 2^{27}$$
 
 \pagebreak
 
@@ -260,29 +265,53 @@ V(pk, m, \sigma) := \text{ true or false}
 
 \subsubsection{Hash functions}
 
-A hash function generates for a message of arbitrary size a value of fixed size, called hash. It should not be possible to reconstruct the message from the hash and the same input should always produce the same output. This way the integrity of a message can be verified.
+A hash function generates for a message of arbitrary size a value of fixed size, called a hash. It should not be possible to reconstruct the message from the hash and the same input should always produce the same output.
 
 \subsection{The BLS Signature Scheme}
-The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group.
-Formally we have the following functions defining the scheme.
+The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group. As the exact pairing function is pretty complicated I will not explain exactly how it works and refer to the dissertation of Ben Lynn \url{https://crypto.stanford.edu/pbc/thesis.pdf}. In most other signature schemes we sign the hash of a message and this hash result is just a number. 
+
+In BLS we need a hash where the result is a x-point on the elliptical curve. If we have a 256Bit elliptical curve, that means we have $2^{256}$ points and SHA-256 also gives a 256-bit result. As every valid x coordinate has 2 y coordinates (positive and negative) we have a 50\% chance to find 2 points and 50\% chance to find none. To find a valid hash for any message we simply append a number to the message and increment it until we find valid points and choose the one of the two points. We also cannot just take any curve, it needs to be pairing friendly.
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=0.5\linewidth]{bls-hash}
+	\caption{Hashing on the curve $y^2=x^3+7$ mod 23}
+\end{figure}
+
+With this we can define our functions.
+
 \begin{itemize}
 	\item Key generation $G()$
 	\begin{center}
-		random \( x\in \mathbb{Z}_{q} \) and set \( h \leftarrow g_{1}^\alpha\in \mathbb{G}_{1} \) output: \( pk := \)(h) and \( sk := (\alpha) \)
+		We take a random number which our secret key $sk$ and our public key $pk$ is defined as $pk = sk \times{G}$ where $G$ is a generator point.
 	\end{center}
 	\item Signature generation $S(sk, m) $
-	\[ \sigma\ := h^x  h := H(m) \]
-	\item Singature validation $V(pk, m, \sigma)$
 	\begin{center}
-		if \( e(g_{1},\sigma) = e(pk, H_{0}(m)) \) accept, otherwise reject
+		The signature $\sigma$ is then simply the result of multiplying the Hash $h$ of the message $m$ with the private key. $\sigma = sk \times{H(m)}$ which can also be written as $ \sigma\ := h^{sk}$ and $h := H(m) $
 	\end{center}
+	\begin{figure}[hbt!]
+		\centering
+		\includegraphics[width=0.49\linewidth]{bls-sign}
+		\caption{BLS signature generation, note: P=pk pk=sk S=$\sigma$}
+	\end{figure}
+	\item Signature validation $V(pk, m, \sigma)$
+	\begin{center}
+		For the verification we need our $e$ function and check the following:
+		$e(pk,H(m)) = e(G,\sigma)$. This works because $e(pk,H(m)) = e(sk\times{G},H(m)) = e(G,sk\times{H(m)}) = e(G, \sigma)$.
+	\end{center}
+	\begin{figure}[hb!]
+		\centering
+		\includegraphics[width=0.49\linewidth]{bls-verify}
+		\caption{BLS signature validation, note: P=pk pk=sk S=$\sigma$}
+	\end{figure}
 \end{itemize}
+
+% TODO: attribute https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716
 
 Interesting properties of the BLS Signature scheme are
 \begin{itemize}
 	\item threshold signature and key generation
 	\item signature aggregation
-	\item
+	\item correlation
 \end{itemize}
 
 \subsection{Threshold Signatures}
@@ -292,6 +321,7 @@ In a threshold cryptosystem a valid signature can be generated if a number of pa
 \subsection{Signature aggregation}
 
 In BLS the primitives(secret keys, public keys and signatures) can be aggregated if they are of the same type and the result will be a primitive of the same type. Even already aggregated ones can be aggregated.
+
 
 \subsection{Correlation}
 
