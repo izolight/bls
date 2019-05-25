@@ -194,7 +194,7 @@ $E_2,_5 (\mathbb{Z}_7) = \{ (1,1),(1,6),(4,0),(5,0),(6,3),(6,4), \mathcal{O} \}$
 
 Addition works with the same formula as before, but because we are operating on a finite field, we can create a table for all possible additions as they will repeat themselves. In elliptic curves over a finite field every point is a generator if the order of the curve is prime.
 
-\subsection{Bilinear Maps}
+\subsection{Bilinear maps}
 A bilinear mapping $e$ maps two additive cyclic groups $G_1$ and $G_2$ of the same prime order $q$ to the multiplicative group $G_t$ of order q. For a pairing function $e$ to be bi-linear, it has to satisfy these properties:
 \begin{itemize}
 	\item commutativity for additive and multiplicative operations
@@ -228,8 +228,8 @@ $$e(3, 4) * e(3, 5) = 2^{3*4} * 2^{3*5} = 2^{12} * 2^{15} = 2^{27}$$
 
 \pagebreak
 
-\section{BLS Signatures}
-\subsection{Signature Schemes}
+\section{BLS signatures}
+\subsection{Signature schemes}
 
 A signature scheme is used for verifying the authenticity of digital messages. With a signature a recipient can verify that a message was sent by the sender it claims(authentication) and that it wasn't tampered with(integrity).
 
@@ -267,7 +267,7 @@ V(pk, m, \sigma) := \text{ true or false}
 
 A hash function generates for a message of arbitrary size a value of fixed size, called a hash. It should not be possible to reconstruct the message from the hash and the same input should always produce the same output.
 
-\subsection{The BLS Signature Scheme}
+\subsection{The BLS signature scheme}
 The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group. As the exact pairing function is pretty complicated I will not explain exactly how it works and refer to the dissertation of Ben Lynn \url{https://crypto.stanford.edu/pbc/thesis.pdf}. In most other signature schemes we sign the hash of a message and this hash result is just a number. 
 
 In BLS we need a hash where the result is a x-point on the elliptical curve. If we have a 256Bit elliptical curve, that means we have $2^{256}$ points and SHA-256 also gives a 256-bit result. As every valid x coordinate has 2 y coordinates (positive and negative) we have a 50\% chance to find 2 points and 50\% chance to find none. To find a valid hash for any message we simply append a number to the message and increment it until we find valid points and choose the one of the two points. We also cannot just take any curve, it needs to be pairing friendly.
@@ -318,7 +318,7 @@ Interesting properties of the BLS Signature scheme are
 
 In BLS the primitives(secret keys, public keys and signatures) can be aggregated if they are of the same type and the result will be a primitive of the same type. Even already aggregated ones can be aggregated.
 
-\subsection{Threshold Signatures}
+\subsection{Threshold signatures}
 
 In a threshold cryptosystem a valid signature can be generated if a number of participants, larger than the threshold $n$, contribute a signature share into an overall signature. This signature is valid as if all participants had signed the message. In BLS we need a setup phase were we need in addition to the Hash on the curve $H(m)$ also a normal hash function that just outputs a number $hash(x)$
 
@@ -339,22 +339,24 @@ If a secret key, public key and signature correlate to each other they also corr
 
 \pagebreak
 
-\section{BLS Signatures and usages for Cryptocurrencies}
+\section{BLS signatures and usages for cryptocurrencies}
 
-\subsection{Secret Sharing}
+\subsection{Splitting of private key}
 If we use the threshold signatures explained earlier and apply this to cryptocurrencies we can make m-of-n multisig transactions. This way a user could split his secret key into multiple secret key shares, while still having a single address which is the public key of the original secret key. Because BLS primitives can be aggregated the address would not look any different than a normal 1-of-1 address. It also would be impossible to know how many keys are involved.
 
-\subsection{Signature Aggregation on transaction blocks}
+\subsection{Multiparty signatures}
+If we would naively use the above key splitting for multiple parties this will become problematic as it would require absolute trust in every party as everyone would have the original key. But with the earlier 2-of-3 example we calculate a membership key than can generate valid signatures and therefore we just need to validate if we have m-of-n signatures that are valid.
+
+\subsection{Signature aggregation on transaction blocks}
 If we have 1000 transactions in a block that each have a signature we could just calculate the aggregated signature, as it is just important that the whole block is valid. The signature of 1000 transaction can b therefore be $\sigma = \sigma_1 + \sigma_2 + ... + \sigma_{1000}$. The validation needs to check if $e(G,\sigma) = e(pk_1,H(m_1)) \cdot e(pk_2,H(m_2)) \cdot ... \cdot e(pk_{1000},H(m_{1000}))$. The calculation still needs to be done for every message, but the final signature for 1000 messages is just the size of 1 signature.
 
-\subsection{Blinding}
-Given signature \( \langle \sigma, g^x \rangle \) on message \( h \), we can blind the signature and public key \( g^x \):
-\[ e(\sigma^b,g) = e(h,g)*{xb} = e(h,g^{xb}) \]
-Thus \( \sigma^b \) is a valid signature for the derived public key \( (g^x)^b \) with blinding value \( b \in \mathbb{Z}_{q} \).\cite[PKI Slide 12]{crypto-slides-grothoff}
+%\subsection{Blinding}
+%Given signature \( \langle \sigma, g^x \rangle \) on message \( h \), we can blind the signature and public key \( g^x \):
+%\[ e(\sigma^b,g) = e(h,g)*{xb} = e(h,g^{xb}) \]
+%Thus \( \sigma^b \) is a valid signature for the derived public key \( (g^x)^b \) with blinding value \( b \in \mathbb{Z}_{q} \).\cite[PKI Slide 12]{crypto-slides-grothoff}
 \pagebreak
 
 \section{Conclusion}
-
 
 
 \printbibliography
