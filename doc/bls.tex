@@ -309,19 +309,31 @@ With this we can define our functions.
 
 Interesting properties of the BLS Signature scheme are
 \begin{itemize}
-	\item threshold signature and key generation
 	\item signature aggregation
+	\item threshold signature and key generation
 	\item correlation
 \end{itemize}
-
-\subsection{Threshold Signatures}
-
-In a threshold cryptosystem a valid signature can be generated if a number of participants, larger than the threshold $n$, contribute a signature share into an overall signature. This signature is valid as if all participants had signed the message.
 
 \subsection{Signature aggregation}
 
 In BLS the primitives(secret keys, public keys and signatures) can be aggregated if they are of the same type and the result will be a primitive of the same type. Even already aggregated ones can be aggregated.
 
+\paragraph{Example}
+
+The signature of 1000 messages is therefore $\sigma = \sigma_1 + \sigma_2 + ... + \sigma_{1000}$. The validation needs to check if $e(G,\sigma) = e(pk_1,H(m_1)) \cdot e(pk_2,H(m_2)) \cdot ... \cdot e(pk_{1000},H(m_{1000}))$. The calculation still needs to be done for every message, but the final signature for 1000 messages is just the size of 1 signature.
+
+\subsection{Threshold Signatures}
+
+In a threshold cryptosystem a valid signature can be generated if a number of participants, larger than the threshold $n$, contribute a signature share into an overall signature. This signature is valid as if all participants had signed the message. In BLS we need a setup phase were we need in addition to the Hash on the curve $H(m)$ also a normal hash function that just outputs a number $hash(x)$
+
+\paragraph{Example}
+
+We will do a 2-of-3 multisig.
+We first calculate a value a for every public key $a_i = hash(pk_i,{pk_1,pk_2,pk_3})$ and then calculate an aggregated public key $pk = a_1\times{pk_1}+a_2\times{pk_2}+a_3\times{pk_3}$. Then we generate a membership key for every $i$ $M_i = (a_1 \cdot sk_1) \times{H(pk,i)} + (a_2 \cdot sk_2) \times{H(pk,i)} + (a_3 \cdot sk_3) \times{H(pk,i)}$. This membership key fulfills this equation $e(G,M_i) = e(pk,H(pk,i))$.
+
+To sign the message we calculate the signatures $\sigma_1 = sk_1 \times{H(pk,m)} + M_1$ and $\sigma_2 = sk_2 \times{H(P,m)} + M_2$ and aggregate them $(\sigma',pk') = (\sigma_1 + \sigma_2, pk_1 + pk_2)$.
+
+To verify this we need to check $e(G,\sigma') = e(pk',H(pk,m)) \cdot e(pk, H(pk,1)+H(pk,2))$
 
 \subsection{Correlation}
 
