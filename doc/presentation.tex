@@ -235,17 +235,39 @@
 \end{frame}
 \section{Usage of BLS for cryptocurrencies}
 \begin{frame}{Splitting of private key}
-	content...
+	\begin{itemize}
+		\item User can split his private key to $n$ shares
+		\item Public address is still public key of original private key
+		\item indistinguishable from normal address
+		\item even if found out(out of band) that it splitted, no knowledge of \#keyshares
+	\end{itemize}
 \end{frame}
 \begin{frame}{Multiparty signatures}
-	content...
+	\begin{itemize}
+		\item Multiple keys can sign a transaction which can be aggregated
+		\item Transaction is only valid if at least m-of-n signatures are valid
+		\item demonstrated in earlier example
+	\end{itemize}
 \end{frame}
-\begin{frame}{Signature aggreation of transaction blocks}
-	content...
+\begin{frame}{Signature aggregation of transaction blocks}
+	\begin{itemize}
+		\item Typical transaction has message, pubkey, signature
+		\item Block consists of transactions
+		\item Block is valid if all transactions have valid signatures
+		\item Signatures can be aggregated and just store aggregate signature (size of 1 signature) \newline
+		 $\sigma = \sigma_1 + \sigma_2 + ... + \sigma_{1000}$
+		 \item Can be validated via \newline
+		 $e(G,\sigma) = e(pk_1,H(m_1)) \cdot e(pk_2,H(m_2)) \cdot ... \cdot e(pk_{1000},H(m_{1000}))$
+	\end{itemize}
 \end{frame}
 \section{Conclusion}
 \begin{frame}{Conclusion}
-	content...
+	\begin{itemize}
+		\item Complicated math with useful properties
+		\item Could reduce size of blocks
+		\item Better privacy with splitted keyshares
+		\item Easier multiparty signatures
+	\end{itemize}
 \end{frame}
 
 \end{document}
