@@ -268,7 +268,7 @@ V(pk, m, \sigma) := \text{ true or false}
 A hash function generates for a message of arbitrary size a value of fixed size, called a hash. It should not be possible to reconstruct the message from the hash and the same input should always produce the same output.
 
 \subsection{The BLS signature scheme}
-The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group. As the exact pairing function is pretty complicated I will not explain exactly how it works and refer to the dissertation of Ben Lynn \url{https://crypto.stanford.edu/pbc/thesis.pdf}. In most other signature schemes we sign the hash of a message and this hash result is just a number. 
+The BLS Signature Method (named after Boneh, Lynn and Shacham) uses bi-linear pairing with an elliptic curve group. It uses the Weil-Pairing, which is pretty complicated, so I will not explain exactly how it works and refer to the paper from Boneh, Lynn and Shacham \cite[]{bls-paper}. In most other signature schemes we sign the hash of a message and this hash result is just a number. 
 
 In BLS we need a hash where the result is a x-point on the elliptical curve. If we have a 256Bit elliptical curve, that means we have $2^{256}$ points and SHA-256 also gives a 256-bit result. As every valid x coordinate has 2 y coordinates (positive and negative) we have a 50\% chance to find 2 points and 50\% chance to find none. To find a valid hash for any message we simply append a number to the message and increment it until we find valid points and choose the one of the two points. We also cannot just take any curve, it needs to be pairing friendly.
 \begin{figure}[hbt!]
