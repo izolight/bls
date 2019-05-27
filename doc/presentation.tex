@@ -214,8 +214,9 @@
 	\begin{itemize}
 		\item m-of-n signatures
 		\item need only m signature shares to generate signature created from n signature shares
-		\item needs setup phase in BLS and normal hashing in addition to curve hashing
-		\item generates aggregated $pk$ and membership key $M_i$		
+		\item needs setup phase in BLS and normal hashing in addition to curve hashing (once)
+		\item blinding to prevent rogue key attacks
+		\item generates aggregated $pk$ and membership key $M_i$ for signing
 	\end{itemize}
 \end{frame}
 \begin{frame}{Threshold signatures}
@@ -246,7 +247,9 @@
 	\begin{itemize}
 		\item Multiple keys can sign a transaction which can be aggregated
 		\item Transaction is only valid if at least m-of-n signatures are valid
-		\item demonstrated in earlier example
+		\item Demonstrated in earlier example
+		\item Doesn't need merkle tree of public keys
+		\item Doesn't need several communication rounds
 	\end{itemize}
 \end{frame}
 \begin{frame}{Signature aggregation of transaction blocks}
